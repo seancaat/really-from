@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+<title>REALLY FROM</title>
+
+<meta name="Sean" content="">
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="third-party/css/tachyons.css">
+<link rel="stylesheet" href="css/main.css">
+<script type="text/javascript" src='js/main.js'></script>
+<script type="text/javascript" src='third-party/js/midi-handler.js'></script>
+<script type="text/javascript" src='third-party/js/paper-full.min.js'></script>
+<script type="text/javascript" src='third-party/js/matter.min.js'></script>
+<script type="text/javascript" src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<script type="text/javascript" src='js/main.js'></script>
+<script type="text/paperscript" src="5.js" canvas="canvas"></script>
+
+  <style type="text/css">
+    canvas {
+      background-image: url("images/fsd-msp.jpg");
+      background-size: cover;
+    }
+  </style>
+  
+<body>  
+  <section class="w-100 pa0">
+    <!--   Why is this underneath the canvas?   -->
+    <header class="fixed w-100 pv4 ph2 ph4-ns mt0">
+      <nav class="lh-solid">
+        <a class="link near-white fw3 fl" href="">SEAN CATANGUI</a>
+        <a class="link near-white fw3 fr" href="">REALLY FROM</a>
+      </nav>
+    </header>
+
+    <canvas class="filtered vh-100 hw-100 bg-washed-yellow" id="canvas" resize="true"></canvas>
+
+    <footer class="fixed w-100 pv4 ph2 ph4-ns">
+      <nav class="lh-solid">
+        <a class="link white fw3 fl" href="#">5/5</a>
+        <a class="link near-white fw3 fr" href="#">IN FLIGHT</a>
+      </nav>
+      <p class="link near-white fw3 f4 tc pv0 ma0 line-height-solid"></p>        
+    </footer>        
+  </section>
+
+  
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="0">
+    <defs>
+      <filter id="f1">
+        <!--    stdDeviation to be parameterized      -->
+        <feGaussianBlur stdDeviation="40"/>
+      </filter>
+    </defs>
+  </svg>    
+</body>
+</html>

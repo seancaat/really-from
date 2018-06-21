@@ -1,0 +1,17 @@
+red: 
+rgb(249,14,27)
+
+violet: 
+rgb(250,40,251)
+
+royal:
+rgb(11,36,250)
+
+baby:
+rgb(45,254,254)
+
+yellow:
+rgb(254,253,56)
+
+green
+rgb(41,251,47)
