@@ -3,6 +3,27 @@ var audio = new Audio('audio/1-solitude.mp3');
 audio.loop = true;
 audio.play();
 
+
+
+// PARAMETERIZE
+//1.
+//2. scale (some get smaller some get bigger)
+//3. shapes become different (circles to collection of rings, triangles, irregular polygons using paper js interpolate to; sorta like paul kelpe)
+//4. blend mode
+//5. change the x of gravity (view bounds is a wall)
+//6. change the y of gravity
+//7. halt attraction
+//8. add / take away shapes
+
+// things i can change
+
+// circles can sometimes fall to the ground
+// sometimes mushy
+
+// shadows are silly. what else can i do?
+
+
+
 // DISPLAY SET UP
 $(window).resize(resizeAndRedrawCanvas);
 $(document).ready(resizeAndRedrawCanvas);

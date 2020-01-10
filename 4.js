@@ -1,6 +1,6 @@
 window.URL_COUNTER = 3;
 // PARAMETERIZE
-//1. color scheme (hue)
+//1. color scheme (hue) -- interpolate all colors
 //2. background color
 //3. speed x
 //4. speed y

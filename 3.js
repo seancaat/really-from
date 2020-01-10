@@ -3,6 +3,21 @@ var audio = new Audio('audio/3-quarrel.mp3');
 audio.loop = true;
 audio.play();
 
+
+// PARAMETERIZE
+//1.
+//2. 
+//3. 
+//4. 
+//5. 
+//6. 
+//7. 
+//8. 
+
+// rectangles could flicker their shapes
+// text could move
+
+
 //console.log
 var width = view.size.width;
 var height = view.size.height;
