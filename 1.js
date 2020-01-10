@@ -6,7 +6,7 @@ audio.play();
 
 
 // PARAMETERIZE
-//1.
+//1. gradient
 //2. scale (some get smaller some get bigger)
 //3. shapes become different (circles to collection of rings, triangles, irregular polygons using paper js interpolate to; sorta like paul kelpe)
 //4. blend mode
