@@ -6,22 +6,11 @@ audio.play();
 
 
 // PARAMETERIZE
-//1. gradient
-//2. scale (some get smaller some get bigger)
-//3. shapes become different (circles to collection of rings, triangles, irregular polygons using paper js interpolate to; sorta like paul kelpe)
-//4. blend mode
 //5. change the x of gravity (view bounds is a wall)
 //6. change the y of gravity
-//7. halt attraction
-//8. add / take away shapes
-
-// things i can change
-
 // circles can sometimes fall to the ground
-// sometimes mushy
-
-// shadows are silly. what else can i do?
-
+// stop physics
+// change shadow
 
 
 // DISPLAY SET UP
@@ -66,7 +55,7 @@ var mid = {x: canvas.width / pxRatio / 2,
 
 
 // var particleSizeCt = 50;
-var radii = [8, 13, 21, 34, 55];
+var radii = [13, 21, 34, 55];
 
 // TO HOLD ALL PAPER OBJECTS
 var Objects = [];
@@ -110,7 +99,7 @@ function addCircle(x, y, r, isStatic){
 
   // matterjs
   bodyOptions.isStatic = isStatic;
-  World.add(engine.world, Bodies.circle(x, y, r * getRandom(0.1, 1.6), bodyOptions));
+  World.add(engine.world, Bodies.circle(x, y, r * getRandom(0.1, 1.25), bodyOptions));
 
   // paperjs
   var circle = new Path.Circle(new Point(x, y), r);
@@ -120,7 +109,6 @@ function addCircle(x, y, r, isStatic){
   circle.shadowColor = new Color(0, 0, 0, 0.27);
   circle.shadowBlur = 4;
   circle.shadowOffset = new Point(2,2);
-  // circle.blendMode = 'multiply';
   return circle;
 }
 
@@ -136,13 +124,14 @@ function normalize(vector) {
 }
 
 
-// PUTTING STUFF TO THE SCREEN
+// SET BACKGROUND
 var bg = new Path.Rectangle({
   from: [0,0],
   to: view.viewSize,
   fillColor: 'white'
 });
 
+// CREATE CIRCLES
 for (var i = 0; i < 50; i++) {
   var random = randof(radii);
   Objects.push(addCircle(Math.random() * view.viewSize.width, 
@@ -151,7 +140,13 @@ for (var i = 0; i < 50; i++) {
                          false));   
 }
 
-// ANIMATE 
+
+
+
+
+
+var forceInterval = 2;
+// UPDATE PHYSICS 
 function onFrame(event) {
   for(it in engine.world.bodies){
     var body = engine.world.bodies[it];
@@ -168,8 +163,10 @@ function onFrame(event) {
     //BREATHING
     var direction = 0.4;
     if(Math.floor(event.time) % 2 === 0) {
-      direction = - 1 * map(s6.value, 1.5, 5) * direction;
+      direction = - 1 * map(s5.value, 1.5, 6) * direction;
     }
+
+    // var direction = -0.4 * Math.sin(event.time) 
     Body.applyForce(body, body.position, {
       x: (forceMagnitude) * direction * dist_to_center.x,
       y: (forceMagnitude) * direction * dist_to_center.y
@@ -179,13 +176,14 @@ function onFrame(event) {
     // matterjs calculates position as the centroid of the object
     render.position = boundsCenter(body.bounds.min.x, body.bounds.min.y, body.bounds.max.x, body.bounds.max.y);
   }
-  
-  // for (it in Objects) {
-  // }
 }
 
-// INTERACTIONS 
 
+
+
+
+
+// INTERACTIONS 
 function onMIDIMessage(message) {
   data = message.data;
   setSliders(data);
@@ -203,9 +201,14 @@ function onMIDIMessage(message) {
 
   if(data[1] === 3) {}
 
-  if(data[1] === 4) {}
+  if(data[1] === 4) {
+    //doesn't work 
+    pauseForce();
+  }
 
-  if(data[1] === 5) {}
+  if(data[1] === 5) {
+    //changes the strength of center gravity
+  }
 
   if(data[1] === 6) {
     changeBlendMode(Objects);
@@ -232,7 +235,7 @@ function ring(objects) {
   // VISUAL
   for(var i = 0; i < objects.length; i++) {
     var c = objects[i];
-    c.strokeWidth = map(s0.value, 0, c.bounds.width / 16);
+    c.strokeWidth = map(s0.value, 0, c.bounds.width / 12);
     if (c.strokeWidth > Math.min(c.bounds.width/32, c.bounds.height/32)) {
         c.fillColor = 'transparent';
     } else {
@@ -285,7 +288,9 @@ function scale(objects) {
   }
 }
 
-
+function pauseForce() {
+  forceInterval = map(s4.value, 2, 4);
+}
 
 
 // WEIRD MIDI STUFF I THINK SHOULDN'T HAVE TO BE INCLUDED
