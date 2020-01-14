@@ -46,7 +46,6 @@ var Engine = Matter.Engine,
     Body = Matter.Body,
     Bodies = Matter.Bodies,
     Composite = Matter.Composite,
-//    Composites = Matter.Composites,
     Constraint = Matter.Constraint,
     Common = Matter.Common,
 //    Vertices = Matter.Vertices,
@@ -66,9 +65,10 @@ var mid = {x: canvas.width / pxRatio / 2,
            y: canvas.height / pxRatio / 2};
 
 
-var particleSizeCt = 50;
+// var particleSizeCt = 50;
+var radii = [8, 13, 21, 34, 55];
 
-// TO HOLD ALL PHYSICS OBJECTS
+// TO HOLD ALL PAPER OBJECTS
 var Objects = [];
 
 // ATMOSPHERIC PROPERTIES
@@ -80,6 +80,7 @@ var bodyOptions = {
 };
 
 engine.world.gravity.scale = 0;
+
 var colors = [
   'rgb(236,112,99)',
   'rgb(155,96,52)',
@@ -106,20 +107,24 @@ var colors = [
 ];
 
 function addCircle(x, y, r, isStatic){
+
   // matterjs
   bodyOptions.isStatic = isStatic;
   World.add(engine.world, Bodies.circle(x, y, r * getRandom(0.1, 1.6), bodyOptions));
+
   // paperjs
   var circle = new Path.Circle(new Point(x, y), r);
-  circle.fillColor = 'white';
+  var color = randof(colors);
+  circle.fillColor = color;
+  circle.strokeColor = color;
   circle.shadowColor = new Color(0, 0, 0, 0.27);
   circle.shadowBlur = 4;
-  // param
   circle.shadowOffset = new Point(2,2);
-  circle.blendMode = 'multiply';
+  // circle.blendMode = 'multiply';
   return circle;
 }
 
+// update positions of circles
 function boundsCenter(minX, minY, maxX, maxY){
   return new Point((maxX + minX)/2, (maxY + minY)/2);
 }
@@ -135,12 +140,15 @@ function normalize(vector) {
 var bg = new Path.Rectangle({
   from: [0,0],
   to: view.viewSize,
-  fillColor: 'black'
+  fillColor: 'white'
 });
 
 for (var i = 0; i < 50; i++) {
-  var random = Math.random() * particleSizeCt;
-  Objects.push(addCircle(Math.random() * view.viewSize.width, Math.random() * view.viewSize.height, random, false));   
+  var random = randof(radii);
+  Objects.push(addCircle(Math.random() * view.viewSize.width, 
+                         Math.random() * view.viewSize.height, 
+                         random, 
+                         false));   
 }
 
 // ANIMATE 
@@ -149,11 +157,8 @@ function onFrame(event) {
     var body = engine.world.bodies[it];
     var render = Objects[it];
     
-    
-    
     // FORCE VECTOR
-    var dist_to_center = {x: body.position.x - mid.x,
-                          y: body.position.y - mid.y};
+    var dist_to_center = {x: body.position.x - mid.x, y: body.position.y - mid.y};
     dist_to_center = normalize(dist_to_center);
     dist_to_center = {x: dist_to_center.x * 0.1,
                       y: dist_to_center.y * 0.1};
@@ -161,9 +166,8 @@ function onFrame(event) {
     var forceMagnitude = 0.005 * body.mass;
     
     //BREATHING
-//    var total = 0.7;
     var direction = 0.4;
-    if(Math.floor(event.time) % 2=== 0) {
+    if(Math.floor(event.time) % 2 === 0) {
       direction = - 1 * map(s6.value, 1.5, 5) * direction;
     }
     Body.applyForce(body, body.position, {
@@ -176,26 +180,135 @@ function onFrame(event) {
     render.position = boundsCenter(body.bounds.min.x, body.bounds.min.y, body.bounds.max.x, body.bounds.max.y);
   }
   
-  for (it in Objects) {
-    //COLOR
-    bg.opacity = map(s0.value, 0, 0.8);
-    Objects[it].fillColor.red = map(s1.value, 0, 1);
-    Objects[it].fillColor.green = map(s2.value, 0, 1);
-    Objects[it].fillColor.blue = map(s3.value, 0, 1);
-    
-    //STYLE
-    Objects[it].shadowOffset = new Point(map(s4.value, 2, 100),
-                                         map(s5.value, 2, 100));
-    Objects[it].shadowBlur = 0.4 * map(s4.value, 2, 100);
-    
-    if(s7.value > 63) {
-      Objects[it].fillColor = new Color(Math.random(), Math.random(), Math.random());
-    }
-  }
+  // for (it in Objects) {
+  // }
 }
 
 // INTERACTIONS 
 
+function onMIDIMessage(message) {
+  data = message.data;
+  setSliders(data);
+
+  if(data[1] === 0) {
+    ring(Objects);
+  }
+  if(data[1] === 1) {
+    scale(Objects);
+  }
+
+  if(data[1] === 2) {
+    makeBlobby(Objects);
+  }
+
+  if(data[1] === 3) {}
+
+  if(data[1] === 4) {}
+
+  if(data[1] === 5) {}
+
+  if(data[1] === 6) {
+    changeBlendMode(Objects);
+  }
+  
+  if(data[1] === 7) {
+    changeBg(bg);
+  }
+
+}
+
+
+
+
 // RUN MATTER.JS
 Engine.run(engine);
 Render.run(render);
+
+
+console.log(Objects[0].segments);
+
+// INTERACTION FUNCTIONS
+function ring(objects) {
+  // VISUAL
+  for(var i = 0; i < objects.length; i++) {
+    var c = objects[i];
+    c.strokeWidth = map(s0.value, 0, c.bounds.width / 16);
+    if (c.strokeWidth > Math.min(c.bounds.width/32, c.bounds.height/32)) {
+        c.fillColor = 'transparent';
+    } else {
+        c.fillColor = c.strokeColor;
+    }
+  }
+  // PHYSICS
+}
+
+function changeBg(rect) {
+    rect.fillColor.brightness = map(s7.value, 0, 1);
+}
+
+function makeBlobby(objects) {
+  for(var i = 0; i < objects.length; i++) {
+    var c = objects[i];
+    for(var j = 0; j < c.segments.length; j++) {
+      c.segments[j].point.x += (i + 1) * Math.random() * map(s2.value, -0.25, 0.25);
+      c.segments[j].point.y -= (i + 1) * Math.random() * map(s2.value, -0.25, 0.25);
+    }   
+  }
+}
+
+function changeBlendMode(objects) {
+  // VISUAL
+  for(var i = 0; i < objects.length; i++) {
+    var c = objects[i];
+    if (data[1] === 6) {
+      if (s6.value >= 63) {
+          c.blendMode = 'difference';
+      } else {
+          c.blendMode = 'normal';
+      }
+    }
+  }
+
+  // PHYSICS
+}
+
+function scale(objects) {
+  for(var i = 0; i < objects.length; i++) {
+    var c = objects[i];
+    if(s1.previous_value > s1.value) {
+      c.bounds.width *= map(s1.value, 0.99, 0.999);
+      c.bounds.height *= map(s1.value, 0.99, 0.999);
+    } else if (s1.previous_value < s1.value) {
+        c.bounds.width *= map(s1.value, 1.001, 1.01);
+        c.bounds.height *= map(s1.value, 1.001, 1.01);
+    }
+  }
+}
+
+
+
+
+// WEIRD MIDI STUFF I THINK SHOULDN'T HAVE TO BE INCLUDED
+if (navigator.requestMIDIAccess) {
+  navigator.requestMIDIAccess({
+      sysex: false
+  }).then(onMIDISuccess, onMIDIFailure);
+} else {
+    alert("No MIDI support in your browser.");
+}
+
+function onMIDISuccess(midiAccess) {
+  // when we get a succesful response, run this code
+  midi = midiAccess; 
+  // this is our raw MIDI data, inputs, outputs, and sysex status
+
+  var inputs = midi.inputs.values();
+  // loop over all available inputs and listen for any MIDI input
+  for (var input = inputs.next(); input && !input.done; input = inputs.next()) {      
+    input.value.onmidimessage = onMIDIMessage;
+  }
+}
+
+function randof(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}

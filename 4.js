@@ -9,6 +9,11 @@ window.URL_COUNTER = 3;
 //7. blur
 //8. scale
 
+
+
+// animate a blur shape
+//
+
 var audio = new Audio('audio/4-fkku.mp3');
 audio.loop = true;
 audio.play();
