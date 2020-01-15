@@ -200,15 +200,17 @@ function onMIDIMessage(message) {
     makeBlobby(Objects);
   }
 
-  if(data[1] === 3) {}
+  if(data[1] === 3) {
+    cycleColors(Objects);
+  }
 
   if(data[1] === 4) {
-    //doesn't work 
-    pauseForce();
+    shuffleShapes(Objects);
   }
 
   if(data[1] === 5) {
     //changes the strength of center gravity
+    //maybe also smooth/flatten?
   }
 
   if(data[1] === 6) {
@@ -231,7 +233,7 @@ Render.run(render);
 
 console.log(Objects[0].segments);
 
-// INTERACTION FUNCTIONS
+// INTERACTION FUNCTIONS (change args to hold slider value)
 function ring(objects) {
   // VISUAL
   for(var i = 0; i < objects.length; i++) {
@@ -253,10 +255,17 @@ function changeBg(rect) {
 function makeBlobby(objects) {
   for(var i = 0; i < objects.length; i++) {
     var c = objects[i];
+
     for(var j = 0; j < c.segments.length; j++) {
       c.segments[j].point.x += (i + 1) * Math.random() * map(s2.value, -0.25, 0.25);
       c.segments[j].point.y -= (i + 1) * Math.random() * map(s2.value, -0.25, 0.25);
     }   
+
+    if( Math.random() < 0.75) {
+      c.smooth();
+    }
+    
+
   }
 }
 
@@ -289,8 +298,21 @@ function scale(objects) {
   }
 }
 
-function pauseForce() {
-  forceInterval = map(s4.value, 2, 4);
+function shuffleShapes(objects) {
+  for (var i = 0; i < objects.length; i++) {
+    var c = objects[i];
+    if (Math.random() < 0.499) {
+      c.bringToFront();
+    }
+  }
+}
+
+function cycleColors(objects) {
+  for (var i = 0; i < objects.length; i++) {
+    var c = objects[i];
+    var color = randof(colors);
+    c.tween({ fillColor: color, strokeColor: color }, {easing: 'easeOutQuad', duration: 200});
+  }
 }
 
 

@@ -83,7 +83,7 @@ function setSliders(data) {
     case 58:
     case 43:
       if(window.URL_COUNTER === 0) {
-        window.location = window.URLS[4];
+        window.location = window.URLS[2];
         return;
       } else {
         window.URL_COUNTER = window.URL_COUNTER - 1;
@@ -92,7 +92,7 @@ function setSliders(data) {
       break;
     case 59:
     case 44:
-      if(window.URL_COUNTER === 4) {
+      if(window.URL_COUNTER === 2) {
         window.location = window.URLS[0];
         return;
       } else {
