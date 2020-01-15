@@ -11,6 +11,7 @@ audio.play();
 // circles can sometimes fall to the ground
 // stop physics
 // change shadow
+// add fkn walls!
 
 
 // DISPLAY SET UP

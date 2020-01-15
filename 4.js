@@ -6,13 +6,14 @@ window.URL_COUNTER = 3;
 //4. speed y
 //5. magnitude x 
 //6. magnitude y
-//7. blur
+//7. blur ()
 //8. scale
 
 
 
-// animate a blur shape
-//
+// animate a blur svg shape
+// change size of shapes randomly 
+// 
 
 var audio = new Audio('audio/4-fkku.mp3');
 audio.loop = true;

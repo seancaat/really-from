@@ -14,6 +14,8 @@ audio.play();
 //7. 
 //8. 
 
+// shapes can become gradient of black and transparent 
+
 // rectangles could flicker their shapes
 // text could move
 
