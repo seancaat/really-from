@@ -269,8 +269,7 @@ function makeBlobby(objects) {
     if( Math.random() < 0.75) {
       c.smooth();
     }
-    
-
+  
   }
 }
 

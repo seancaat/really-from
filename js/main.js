@@ -1,10 +1,11 @@
 var urls = ["scratch.html", "index.html", "3.html", "4.html"];
 
+console.log(window.location.pathname)
 function onMIDIMessage(message) {
     data = message.data;
     setSliders(data);
 
-    console.log(data[1]);
+    // console.log(data[1]);
 
     //go back
     if (data[1] === 58) {
@@ -14,6 +15,9 @@ function onMIDIMessage(message) {
                 window.location.href = "/" + urls[1];
                 break;
 
+            case '/':
+                window.location.href = "/" + urls[3];
+                break;
 
             case '/' + urls[1]:
                 window.location.href = "/" + urls[3];
@@ -35,6 +39,9 @@ function onMIDIMessage(message) {
                 window.location.href = "/" + urls[1];
                 break;
 
+            case '/':
+                window.location.href = "/" + urls[2];
+                break;
 
             case '/' + urls[1]:
                 window.location.href = "/" + urls[2];
@@ -46,6 +53,11 @@ function onMIDIMessage(message) {
                 window.location.href = "/" + urls[1];
                 break;
         }
+    }
+
+    if(data[1] === 46) {
+        // window.location.reload();
+        window.location.href = window.location.href;
     }
 };
 

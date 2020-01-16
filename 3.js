@@ -29,7 +29,7 @@ var sizes = [
       new Rectangle(new Point(Math.random() * width, Math.random() * height), new Size(16, 17))
 ];
 
-var amount_multiplier = 2;
+var amount_multiplier = 3;
 
 var rect = new Path.Rectangle(view.center, new Size(1,1));
     rect.fillColor = 'black';
