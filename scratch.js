@@ -1,3 +1,5 @@
+console.log('hi');
+
 var urls = ["scratch.html", "index.html", "3.html", "4.html"];
 
 function onMIDIMessage(message) {
@@ -30,10 +32,11 @@ function onMIDIMessage(message) {
     //go forward
     if (data[1] === 59) {
         switch(window.location.pathname) {
-          
             case '/' + urls[0]:
                 window.location.href = "/" + urls[1];
                 break;
+
+
 
 
             case '/' + urls[1]:
@@ -61,6 +64,24 @@ function refreshPage() {}
 function pauseAnimation() {}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess({
         sysex: false
@@ -80,9 +101,3 @@ if (navigator.requestMIDIAccess) {
       input.value.onmidimessage = onMIDIMessage;
     }
   }
-
-// OPS
-function getRandom(min, max) {
-  return Math.random() * (max - min) + min;
-}
-

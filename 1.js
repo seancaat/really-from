@@ -185,6 +185,7 @@ function onFrame(event) {
 
 
 // INTERACTIONS 
+var counter = 0;
 function onMIDIMessage(message) {
   data = message.data;
   setSliders(data);
@@ -201,7 +202,11 @@ function onMIDIMessage(message) {
   }
 
   if(data[1] === 3) {
-    cycleColors(Objects);
+    counter++;
+    if(counter > 5) {
+      cycleColors(Objects);
+      counter = 0;
+    }
   }
 
   if(data[1] === 4) {
@@ -311,7 +316,8 @@ function cycleColors(objects) {
   for (var i = 0; i < objects.length; i++) {
     var c = objects[i];
     var color = randof(colors);
-    c.tween({ fillColor: color, strokeColor: color }, {easing: 'easeOutQuad', duration: 200});
+    c.fillColor = color;
+    c.strokeColor = color;
   }
 }
 

@@ -11,9 +11,14 @@ window.URL_COUNTER = 3;
 
 
 
-// animate a blur svg shape
+// animate a blur svg shape circles that get blurry when canvas is not
 // change size of shapes randomly 
-// 
+// blobby?
+// speed by a lot
+// tangent functions? x is tangent y is random
+// blend modes
+// gradient fills like drwing
+// cycle through colors
 
 var audio = new Audio('audio/4-fkku.mp3');
 audio.loop = true;

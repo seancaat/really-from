@@ -80,29 +80,29 @@ function setSliders(data) {
       s7.previous_value = s7.value;
       s7.value = data[2];
       break;
-    case 58:
-    case 43:
-      if(window.URL_COUNTER === 0) {
-        window.location = window.URLS[2];
-        return;
-      } else {
-        window.URL_COUNTER = window.URL_COUNTER - 1;
-        window.location = window.URLS[window.URL_COUNTER];
-      }
-      break;
-    case 59:
-    case 44:
-      if(window.URL_COUNTER === 2) {
-        window.location = window.URLS[0];
-        return;
-      } else {
-        window.URL_COUNTER = window.URL_COUNTER + 1;
-        window.location = window.URLS[window.URL_COUNTER];
-      }
-      break;
-    case 41:
-      // play button
-      location.reload();
-      break;
+    // case 58:
+    // case 43:
+    //   if(window.URL_COUNTER === 0) {
+    //     window.location = window.URLS[2];
+    //     return;
+    //   } else {
+    //     window.URL_COUNTER = window.URL_COUNTER - 1;
+    //     window.location = window.URLS[window.URL_COUNTER];
+    //   }
+    //   break;
+    // case 59:
+    // case 44:
+    //   if(window.URL_COUNTER === 2) {
+    //     window.location = window.URLS[0];
+    //     return;
+    //   } else {
+    //     window.URL_COUNTER = window.URL_COUNTER + 1;
+    //     window.location = window.URLS[window.URL_COUNTER];
+    //   }
+    //   break;
+    // case 41:
+    //   // play button
+    //   location.reload();
+    //   break;
   }
 }

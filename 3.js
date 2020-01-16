@@ -3,28 +3,7 @@ var audio = new Audio('audio/3-quarrel.mp3');
 audio.loop = true;
 audio.play();
 
-
-
-// PARAMETERIZE
-// 1. shapes can become gradient of black and transparent 
-
-// 4. speed + skew?
-
-// 6. warp text / cycle through fonts randomly
 var fontClasses = ["sans-serif","serif","system-sans-serif","system-serif","code","courier","helvetica","avenir","athelas","georgia","times","bodoni mt","calisto mt","garamond","baskerville"];
-
-// 8. trigger marquee text
-
-// 10. blend mode
-// 11. change top and bottom segment lengths? maybe too irregular for teh vibe
-
-// 
-
-// rectangles could flicker their shapes
-// text could move
-
-
-//console.log
 var width = view.size.width;
 var height = view.size.height;
 
@@ -142,7 +121,6 @@ function onMIDIMessage(message) {
       changeFonts();
       counter = 0;
     }
-    
   }
   
   if(data[1] === 7) {
@@ -152,7 +130,7 @@ function onMIDIMessage(message) {
 }
 
 
-// INTERACTION FUNCTIONS (change args to hold slider value)
+// INTERACTION FUNCTIONS
 
 function changeSpeed(slider) {
   translate_speed_q = map(slider.value, 30, 120)
