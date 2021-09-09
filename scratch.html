@@ -12,14 +12,29 @@
 <link rel="stylesheet" href="css/main.css">
 <script type="text/javascript" src='third-party/js/midi-handler.js'></script>
 <script type="text/javascript" src='third-party/js/paper-full.min.js'></script>
-<!--<script type="text/javascript" src='third-party/js/matter.min.js'></script>-->
-<!--<script type="text/javascript" src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>-->
 
 <script type="text/javascript" src='js/main.js'></script>
-<script type="text/paperscript" src="2.js" canvas="canvas"></script>
+<script type="text/paperscript" src="scratch.js" canvas="canvas"></script>
   
-<body>  
+  <style type="text/css">
+    canvas {
+      top: 0;
+      z-index: 0;
+    }
+    section {
+      z-index: 1;
+    }
+
+    blockquote {
+      mix-blend-mode: difference;
+    }
+  </style>
+  
+<body class="">  
   <section class="w-100 pa0">
+    
+    <canvas class="fixed vh-100 hw-100" id="canvas" resize="true"></canvas>
+    
     <header class="fixed w-100 pv4 ph2 ph4-ns mt0">
       <nav class="lh-solid">
         <a class="link black fw3 fl" href="">SEAN CATANGUI</a>
@@ -27,14 +42,14 @@
       </nav>
     </header>
 
-    <canvas class="vh-100 hw-100" id="canvas" resize="true"></canvas>
-
     <footer class="fixed w-100 pv4 ph2 ph4-ns">
+      
       <nav class="lh-solid">
-        <a class="link black fw3 fl" href="#">2/5</a>
-        <a class="link black fw3 fr" href="#">INHERITANCE</a>
+        <a class="link black fw3 f;" href="#">2/3 
+          <span class="i">Fkku - NxWorries</span>
+        </a>
+        <a class="link black fw3 fr" href="#">ANOTHER'S MIND</a>
       </nav>
-      <p class="link black fw3 f4 tc pv0 ma0 line-height-solid"></p>        
     </footer> 
     
   </section>
